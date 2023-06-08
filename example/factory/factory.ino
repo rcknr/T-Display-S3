@@ -398,8 +398,9 @@ void timeavailable(struct timeval *t) {
 }
 
 void setTimezone() {
+  String timezone
 #ifdef CUSTOM_TIMEZONE
-  String timezone = CUSTOM_TIMEZONE;
+  timezone = CUSTOM_TIMEZONE;
   Serial.println("Custom timezone is set: " + timezone);
 #else
   Serial.println("Custom timezone is not set. Trying to detect...");
@@ -432,22 +433,14 @@ void setTimezone() {
     }
     http.end();
   }
-
-
 #endif
 
   for (uint32_t i = 0; i < sizeof(zones); i++) {
-    if (timezone == "None") {
-      timezone = "CST-8";
-      break;
-    }
     if (timezone == zones[i].name) {
       Serial.println("timezone : " + timezone);
-      timezone = zones[i].zones;
+      setenv("TZ", zones[i].zones.c_str(), 1);  // set time zone
+      tzset();
       break;
     }
   }
-
-  setenv("TZ", timezone.c_str(), 1);  // set time zone
-  tzset();
 }

@@ -16,7 +16,7 @@
 // #define CUSTOM_TIMEZONE             "Europe/London"
 
 /* Automatically update local time */
-#define GET_TIMEZONE_API             "https://ipapi.co/timezone/"
+#define GET_TIMEZONE_API             "http://worldtimeapi.org/api/ip"
 
 /* LCD CONFIG */
 // Too low or too high pixel clock may cause screen mosaic
